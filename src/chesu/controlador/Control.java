@@ -1,8 +1,8 @@
-package juegoajedrez.controlador;
+package chesu.controlador;
 
+import chesu.vista.JpInicio;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import juegoajedrez.vista.*;
 
 /**
  *

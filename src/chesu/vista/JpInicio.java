@@ -1,9 +1,9 @@
-package juegoajedrez.vista;
+package chesu.vista;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-import juegoajedrez.controlador.Control;
+import chesu.controlador.Control;
 
 /**
  *

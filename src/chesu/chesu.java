@@ -1,13 +1,13 @@
-package juegoajedrez;
+package chesu;
 
-import juegoajedrez.controlador.Control;
+import chesu.controlador.Control;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Cesar Acosta
  */
-public class JuegoAjedrez {
+public class chesu {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Ajedrez");
