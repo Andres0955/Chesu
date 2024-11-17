@@ -1,6 +1,6 @@
 package chesu;
 
-import chesu.controlador.Control;
+import chesu.controlador.ControlPrincipal;
 import javax.swing.JFrame;
 
 /**
@@ -11,7 +11,7 @@ public class chesu {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Ajedrez");
-        Control control = new Control(frame);
+        ControlPrincipal control = new ControlPrincipal(frame);
         frame.setVisible(true);
         frame.pack();
     }

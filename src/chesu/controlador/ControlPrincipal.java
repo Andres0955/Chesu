@@ -8,13 +8,13 @@ import javax.swing.JPanel;
  *
  * @author Cesar Acosta
  */
-public class Control {
-    private Control instancia;
+public class ControlPrincipal {
+    private ControlPrincipal instancia;
     private JpInicio jpInicio;
     private JPanel panelActual;
     private JFrame frame;
     
-    public Control(JFrame frame){
+    public ControlPrincipal(JFrame frame){
         this.frame = frame;
         this.instancia = this;
         this.jpInicio = new JpInicio(instancia);

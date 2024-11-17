@@ -3,17 +3,17 @@ package chesu.vista;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-import chesu.controlador.Control;
+import chesu.controlador.ControlPrincipal;
 
 /**
  *
  * @author Cesar Acosta
  */
 public class JpInicio extends javax.swing.JPanel {
-    private Control control;
+    private ControlPrincipal control;
     private ImageIcon fondo;
     
-    public JpInicio(Control control) {
+    public JpInicio(ControlPrincipal control) {
         this.control = control;
         this.fondo = new ImageIcon(getClass().getResource("/recursos/imagenes/fondos/fondo.png"));
         initComponents();
