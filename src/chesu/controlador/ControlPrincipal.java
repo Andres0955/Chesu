@@ -1,6 +1,7 @@
 package chesu.controlador;
 
-import chesu.vista.JpInicio;
+
+import chesu.vista.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,8 +12,12 @@ import javax.swing.JPanel;
 public class ControlPrincipal {
     private ControlPrincipal instancia;
     private JpInicio jpInicio;
+    private JpCargarPartida jpCargarPartida;
+    private JpReproducirPartida jpReproducirPartida;
     private JPanel panelActual;
     private JFrame frame;
+    private ControlReproductor controlReproductor;
+    private ControlJugar controlJugar;
     
     public ControlPrincipal(JFrame frame){
         this.frame = frame;
@@ -22,14 +27,34 @@ public class ControlPrincipal {
     }
     
     public void cambiarPanel(String nuevoPanel){
+        if(panelActual != null){
+            frame.remove(panelActual);
+        }
+        
         switch(nuevoPanel){
             case "inicio":
                 panelActual = jpInicio;
                 break;
-            
+            case "cargarPartida":
+                panelActual = jpCargarPartida;
+                break;
+            case "reproducirPartida":
+                panelActual = jpReproducirPartida;
+                break;
         }
         
         frame.add(panelActual);
-        
+        frame.revalidate();
+        frame.repaint();
+    }
+    public void eleccionDeModo(int eleccion){
+        if(eleccion == 0){
+            this.jpReproducirPartida = new JpReproducirPartida(instancia);
+            this.controlReproductor = new ControlReproductor(instancia, jpReproducirPartida);
+            jpReproducirPartida.setControlReproductor(controlReproductor);
+            this.jpCargarPartida = new JpCargarPartida(instancia, controlReproductor);
+        }else{
+            this.controlJugar = new ControlJugar();
+        }
     }
 }

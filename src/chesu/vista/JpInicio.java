@@ -10,11 +10,11 @@ import chesu.controlador.ControlPrincipal;
  * @author Cesar Acosta
  */
 public class JpInicio extends javax.swing.JPanel {
-    private ControlPrincipal control;
+    private ControlPrincipal controlPrincipal;
     private ImageIcon fondo;
     
     public JpInicio(ControlPrincipal control) {
-        this.control = control;
+        this.controlPrincipal = control;
         this.fondo = new ImageIcon(getClass().getResource("/recursos/imagenes/fondos/fondo.png"));
         initComponents();
         this.jPanelMenu.setBackground(new Color(0,0,0,150));
@@ -36,16 +36,28 @@ public class JpInicio extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelMenu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnReproductorPgn = new javax.swing.JButton();
+        btnJugar = new javax.swing.JButton();
         lblNombrePrograma = new javax.swing.JLabel();
 
-        jButton1.setText("Read Pgn");
+        btnReproductorPgn.setText("Read Pgn");
+        btnReproductorPgn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReproductorPgnActionPerformed(evt);
+            }
+        });
 
+<<<<<<< HEAD
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/imagenes/botones/btnIniciar.jpeg"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+=======
+        btnJugar.setText("Play");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+>>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
             }
         });
 
@@ -55,18 +67,30 @@ public class JpInicio extends javax.swing.JPanel {
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
                 .addGap(132, 132, 132)
+<<<<<<< HEAD
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(120, Short.MAX_VALUE))
+=======
+                .addComponent(btnReproductorPgn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(118, Short.MAX_VALUE))
+>>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+<<<<<<< HEAD
                     .addComponent(jButton1)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                    .addComponent(btnReproductorPgn)
+                    .addComponent(btnJugar))
+>>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
                 .addGap(78, 78, 78))
         );
 
@@ -98,14 +122,25 @@ public class JpInicio extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+=======
+    private void btnReproductorPgnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReproductorPgnActionPerformed
+        controlPrincipal.eleccionDeModo(0);
+        controlPrincipal.cambiarPanel("cargarPartida");
+    }//GEN-LAST:event_btnReproductorPgnActionPerformed
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        controlPrincipal.eleccionDeModo(1);
+    }//GEN-LAST:event_btnJugarActionPerformed
+>>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnJugar;
+    private javax.swing.JButton btnReproductorPgn;
     private javax.swing.JPanel jPanelMenu;
     private javax.swing.JLabel lblNombrePrograma;
     // End of variables declaration//GEN-END:variables
