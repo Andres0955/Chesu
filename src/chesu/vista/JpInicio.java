@@ -38,6 +38,7 @@ public class JpInicio extends javax.swing.JPanel {
         jPanelMenu = new javax.swing.JPanel();
         btnReproductorPgn = new javax.swing.JButton();
         btnJugar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         lblNombrePrograma = new javax.swing.JLabel();
 
         btnReproductorPgn.setText("Read Pgn");
@@ -48,12 +49,16 @@ public class JpInicio extends javax.swing.JPanel {
         });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/imagenes/botones/btnIniciar.jpeg"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
 =======
         btnJugar.setText("Play");
+=======
+        btnJugar.setText("New Game");
+>>>>>>> 4d3dd097035c1aba73b3b61684c759a975945872
         btnJugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJugarActionPerformed(evt);
@@ -61,11 +66,14 @@ public class JpInicio extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Resume Game");
+
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGap(132, 132, 132)
 <<<<<<< HEAD
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -76,6 +84,17 @@ public class JpInicio extends javax.swing.JPanel {
                 .addComponent(btnReproductorPgn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93)
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
+                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMenuLayout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(btnReproductorPgn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93)
+                        .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelMenuLayout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(jButton1)))
+>>>>>>> 4d3dd097035c1aba73b3b61684c759a975945872
                 .addContainerGap(118, Short.MAX_VALUE))
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
         );
@@ -90,8 +109,14 @@ public class JpInicio extends javax.swing.JPanel {
 =======
                     .addComponent(btnReproductorPgn)
                     .addComponent(btnJugar))
+<<<<<<< HEAD
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
                 .addGap(78, 78, 78))
+=======
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(33, 33, 33))
+>>>>>>> 4d3dd097035c1aba73b3b61684c759a975945872
         );
 
         lblNombrePrograma.setFont(new java.awt.Font("Algerian", 1, 120)); // NOI18N
@@ -134,6 +159,7 @@ public class JpInicio extends javax.swing.JPanel {
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         controlPrincipal.eleccionDeModo(1);
+        controlPrincipal.cambiarPanel("infoPartida");
     }//GEN-LAST:event_btnJugarActionPerformed
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
 
@@ -141,6 +167,7 @@ public class JpInicio extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnReproductorPgn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanelMenu;
     private javax.swing.JLabel lblNombrePrograma;
     // End of variables declaration//GEN-END:variables

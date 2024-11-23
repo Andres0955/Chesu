@@ -23,10 +23,17 @@ public class Reina extends Piezas{
      * @return true si es un moviminto valido dentro de las reglas del ajedrez, false si no es valido.
      */
     @Override
-   public boolean esMovimientoValido(Movimiento movimiento) {
+    public boolean esMovimientoValido(Movimiento movimiento) {
         int filaDestino = movimiento.getFila();
         int columnaDestino = movimiento.getColumna();
         
+        int deltaFila = Math.abs(filaDestino - getFila());
+        int deltaColumna = Math.abs(columnaDestino - getColumna());
+        return deltaFila == deltaColumna || getFila() == filaDestino || getColumna() == columnaDestino; // Movimiento en línea recta o diagonal
+    }
+
+    @Override
+    public boolean esMovimientoValido(int filaDestino, int columnaDestino){
         int deltaFila = Math.abs(filaDestino - getFila());
         int deltaColumna = Math.abs(columnaDestino - getColumna());
         return deltaFila == deltaColumna || getFila() == filaDestino || getColumna() == columnaDestino; // Movimiento en línea recta o diagonal

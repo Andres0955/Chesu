@@ -19,7 +19,7 @@ public class Tablero {
 
     /**
      * Constructor de la clase Tablero.
-     * @param control instancia del controlador enviar y recibir datos de la vista.
+     * @param controlReproductor instancia del controlador enviar y recibir datos de la vista.
      */
     public Tablero(ControlReproductor controlReproductor) {
         this.controlReproductor = controlReproductor;

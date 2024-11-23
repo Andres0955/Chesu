@@ -32,12 +32,21 @@ public abstract class Piezas {
         this.imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
     }
     
+    
     /**
      * Metodo abstracto para validar si es un movimiento valido para las piezas.
      * @param movimiento instancia de Moviento en la que se encuentra la ubicacion a la que se desea mover.
      * @return true si es un moviminto valido dentro de las reglas del ajedrez, false si no es valido.
      */
     public abstract boolean esMovimientoValido(Movimiento movimiento);
+    
+    /**
+     * Metodo abstracto para validar si es un movimiento valido para las piezas.
+     * @param filaDestino fila a la que se desea mover.
+     * @param columnaDestino columna a la que se desea mover.
+     * @return true si es un moviminto valido dentro de las reglas del ajedrez, false si no es valido.
+     */
+    public abstract boolean esMovimientoValido(int filaDestino, int columnaDestino);
     
     /**
      * Obtiene el ancho de la pieza.
@@ -103,5 +112,13 @@ public abstract class Piezas {
     public void setPosicion(int fila, int columna){
         this.fila = fila;
         this.columna = columna;
+    }
+    
+    /**
+     * Actualiza o modifica la imagen de la pieza.
+     * @param ruta ruta en la que se encuentra la imagen.
+     */
+    public void setImagen(String ruta){
+        this.imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
     }
 }

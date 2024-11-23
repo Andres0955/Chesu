@@ -46,6 +46,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
 <<<<<<< HEAD
@@ -57,6 +58,21 @@
                   <Component id="btnReproductorPgn" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                   <Component id="btnJugar" min="-2" pref="100" max="-2" attributes="0"/>
+=======
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                          <Component id="btnReproductorPgn" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                          <Component id="btnJugar" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+>>>>>>> 4d3dd097035c1aba73b3b61684c759a975945872
                   <EmptySpace pref="118" max="32767" attributes="0"/>
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
               </Group>
@@ -75,7 +91,9 @@
                       <Component id="btnJugar" alignment="3" min="-2" max="-2" attributes="0"/>
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
                   </Group>
-                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -91,9 +109,13 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnJugar">
           <Properties>
+<<<<<<< HEAD
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/recursos/imagenes/botones/btnIniciar.jpeg"/>
             </Property>
+=======
+            <Property name="text" type="java.lang.String" value="New Game"/>
+>>>>>>> 4d3dd097035c1aba73b3b61684c759a975945872
           </Properties>
           <Events>
 <<<<<<< HEAD
@@ -102,6 +124,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJugarActionPerformed"/>
 >>>>>>> a265dd030f628676bb9ab953dc822010d940ccb1
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Resume Game"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

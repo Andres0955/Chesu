@@ -1,6 +1,7 @@
 package chesu.controlador;
 
 
+import chesu.modelo.EscribirArchivo;
 import chesu.vista.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,9 @@ public class ControlPrincipal {
     private JFrame frame;
     private ControlReproductor controlReproductor;
     private ControlJugar controlJugar;
+    private JpInformacionPartida jpInformacionPartida;
+    private JpTablero jpTablero;
+    private EscribirArchivo escribirArchivo;
     
     public ControlPrincipal(JFrame frame){
         this.frame = frame;
@@ -41,6 +45,12 @@ public class ControlPrincipal {
             case "reproducirPartida":
                 panelActual = jpReproducirPartida;
                 break;
+            case "infoPartida":
+                panelActual = jpInformacionPartida;
+                break;
+            case "tablero":
+                panelActual = jpTablero;
+                break;
         }
         
         frame.add(panelActual);
@@ -54,7 +64,13 @@ public class ControlPrincipal {
             jpReproducirPartida.setControlReproductor(controlReproductor);
             this.jpCargarPartida = new JpCargarPartida(instancia, controlReproductor);
         }else{
-            this.controlJugar = new ControlJugar();
+            this.escribirArchivo = new EscribirArchivo();
+            this.jpInformacionPartida = new JpInformacionPartida(instancia);
+            this.jpTablero = new JpTablero();
+            this.controlJugar = new ControlJugar(jpInformacionPartida, jpTablero, escribirArchivo);
+            jpInformacionPartida.setControlJugar(controlJugar);
+            jpTablero.setControlJugar(controlJugar);
+            
         }
     }
 }
