@@ -6,6 +6,7 @@ package chesu.modelo;
  */
 public class Torre extends Piezas{
     private Tablero tablero;
+    private Tablero2 tablero2;
     
     /**
      * Constructor de la clase Torre.
@@ -18,6 +19,11 @@ public class Torre extends Piezas{
     public Torre(char tipo, String color, String ruta, int fila, int columna, Tablero tablero){
         super(tipo, color, ruta, fila, columna);
         this.tablero = tablero;
+    }
+    
+    public Torre(char tipo, String color, String ruta, int fila, int columna, Tablero2 tablero2){
+        super(tipo, color, ruta, fila, columna);
+        this.tablero2 = tablero2;
     }
 
     /**
@@ -35,6 +41,15 @@ public class Torre extends Piezas{
 
         // Verificar el camino libre solo si es un movimiento en línea recta
         return esLineaRecta && caminoLibre(filaDestino, columnaDestino);
+    }
+    
+    @Override
+    public boolean esMovimientoValido(int filaDestino, int columnaDestino) {
+        // Verificar si el movimiento es en línea recta (horizontal o vertical)
+        boolean esLineaRecta = getFila() == filaDestino || getColumna() == columnaDestino;
+
+        // Verificar el camino libre solo si es un movimiento en línea recta
+        return esLineaRecta && caminoLibre2(filaDestino, columnaDestino);
     }
     
     /**
@@ -61,6 +76,40 @@ public class Torre extends Piezas{
             int incremento = columnaDestino > columnaActual ? 1 : -1; // Determina la dirección del movimiento
             for (int columna = columnaActual + incremento; columna != columnaDestino; columna += incremento) {
                 if (tablero.estaOcupada(filaActual, columna)) { // Verifica si hay una pieza en el camino
+                    return false;
+                }
+            }
+        } else {
+            // No es un movimiento válido para la torre (no es ni horizontal ni vertical)
+            return false;
+        }
+        return true; // No hay piezas en el camino, movimiento libre
+    }
+    
+    /**
+     * Verifica si no hay ninguna pieza dentro del recorrido de un movimiento.
+     * @param filaDestino fila destino.
+     * @param columnaDestino columna destino.
+     * @return true si no hay ninguna pieza en el camino y false en el caso contrario.
+     */
+    private boolean caminoLibre2(int filaDestino, int columnaDestino) {
+        int filaActual = getFila();
+        int columnaActual = getColumna();
+
+        // Movimiento vertical (misma columna)
+        if (columnaActual == columnaDestino) {
+            int incremento = filaDestino > filaActual ? 1 : -1; // Determina la dirección del movimiento
+            for (int fila = filaActual + incremento; fila != filaDestino; fila += incremento) {
+                if (tablero2.estaOcupada(fila, columnaActual)) { // Verifica si hay una pieza en el camino
+                    return false;
+                }
+            }
+        }
+        // Movimiento horizontal (misma fila)
+        else if (filaActual == filaDestino) {
+            int incremento = columnaDestino > columnaActual ? 1 : -1; // Determina la dirección del movimiento
+            for (int columna = columnaActual + incremento; columna != columnaDestino; columna += incremento) {
+                if (tablero2.estaOcupada(filaActual, columna)) { // Verifica si hay una pieza en el camino
                     return false;
                 }
             }

@@ -66,6 +66,7 @@ public class JpCargarPartida extends javax.swing.JPanel {
         jPanelMenu = new javax.swing.JPanel();
         btnSeleccionarArchivo = new javax.swing.JButton();
         btnStart = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         lblNombrePrograma = new javax.swing.JLabel();
 
         btnSeleccionarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/imagenes/botones/btnSubir.png"))); // NOI18N
@@ -87,6 +88,13 @@ public class JpCargarPartida extends javax.swing.JPanel {
             }
         });
 
+        btnRegresar.setText("Back");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
@@ -98,7 +106,10 @@ public class JpCargarPartida extends javax.swing.JPanel {
                         .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
                         .addGap(127, 127, 127)
-                        .addComponent(btnStart)))
+                        .addComponent(btnStart))
+                    .addGroup(jPanelMenuLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(btnRegresar)))
                 .addContainerGap(160, Short.MAX_VALUE))
         );
         jPanelMenuLayout.setVerticalGroup(
@@ -108,7 +119,9 @@ public class JpCargarPartida extends javax.swing.JPanel {
                 .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnStart)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(btnRegresar)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         lblNombrePrograma.setFont(new java.awt.Font("Algerian", 1, 120)); // NOI18N
@@ -136,7 +149,7 @@ public class JpCargarPartida extends javax.swing.JPanel {
                 .addComponent(lblNombrePrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -161,8 +174,13 @@ public class JpCargarPartida extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnStartActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        controlPrincipal.cambiarPanel("inicio");
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionarArchivo;
     private javax.swing.JButton btnStart;
     private javax.swing.JPanel jPanelMenu;

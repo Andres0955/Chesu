@@ -19,7 +19,8 @@ public class JpReproducirPartida extends javax.swing.JPanel {
     private ControlReproductor controlReproductor;
     private ControlPrincipal controlPrincipal;
     private static final int TAMANO_CASILLA = 75; 
-    private static final int MARGEN = 50;
+    private static final int MARGENX = 120;
+    private static final int MARGENY = 50;
     private static final int DIMENSION_TABLERO = 8; 
     private Piezas[][] posiciones;
     private Map<String, Point> coordenadas;
@@ -62,8 +63,8 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         for (int fila = 0; fila < DIMENSION_TABLERO; fila++) {
             for (int columna = 0; columna < DIMENSION_TABLERO; columna++) {
                 
-                int x = MARGEN + columna * TAMANO_CASILLA + 5;
-                int y = MARGEN + fila * TAMANO_CASILLA + 10;
+                int x = MARGENX + columna * TAMANO_CASILLA + 5;
+                int y = MARGENY + fila * TAMANO_CASILLA + 10;
 
                 
                 String id = fila +""+ columna;
@@ -81,8 +82,8 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         for (int fila = 0; fila < DIMENSION_TABLERO; fila++) {
             for (int col = 0; col < DIMENSION_TABLERO; col++) {
                 
-                int x = MARGEN + col * TAMANO_CASILLA;
-                int y = MARGEN + fila * TAMANO_CASILLA;
+                int x = MARGENX + col * TAMANO_CASILLA;
+                int y = MARGENY + fila * TAMANO_CASILLA;
 
                 if ((fila + col) % 2 == 0) {
                     g.setColor(colorTablero[0]);
@@ -97,17 +98,17 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         g.setColor(Color.white);
         g.setFont(new Font("Alergian", Font.ITALIC, 15));
         for (int fila = 0; fila < DIMENSION_TABLERO; fila++) {
-            int y = MARGEN + fila * TAMANO_CASILLA + TAMANO_CASILLA / 2;
-            g.drawString(String.valueOf(DIMENSION_TABLERO - fila), MARGEN / 2, y);
-            g.drawString(String.valueOf(DIMENSION_TABLERO - fila), MARGEN + DIMENSION_TABLERO * TAMANO_CASILLA + 10, y);
+            int y = MARGENY + fila * TAMANO_CASILLA + TAMANO_CASILLA / 2;
+            g.drawString(String.valueOf(DIMENSION_TABLERO - fila), MARGENX / 2 + 35, y);
+            g.drawString(String.valueOf(DIMENSION_TABLERO - fila), MARGENX + DIMENSION_TABLERO * TAMANO_CASILLA + 10, y);
         }
         
         // Dibuja las letras en la parte superior e inferior del tablero.
         for (int columna = 0; columna < DIMENSION_TABLERO; columna++) {
             char letra = letras[columna];
-            int x = MARGEN + columna * TAMANO_CASILLA + TAMANO_CASILLA / 2;
-            g.drawString(String.valueOf(letra), x, MARGEN / 2);
-            g.drawString(String.valueOf(letra), x, MARGEN + DIMENSION_TABLERO * TAMANO_CASILLA + 20);
+            int x = MARGENX + columna * TAMANO_CASILLA + TAMANO_CASILLA / 2;
+            g.drawString(String.valueOf(letra), x, MARGENY / 2);
+            g.drawString(String.valueOf(letra), x, MARGENY + DIMENSION_TABLERO * TAMANO_CASILLA + 20);
         }
 
     }
@@ -219,6 +220,7 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         btnReiniciar = new javax.swing.JButton();
         btnTema = new javax.swing.JToggleButton();
         txtInformacion = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -301,6 +303,14 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         });
         jPanel1.add(txtInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 280, 140, 150));
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -354,6 +364,11 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnReproducirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controlReproductor.reiniciar();
+        controlPrincipal.cambiarPanel("cargarPartida");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvanzar;
@@ -361,6 +376,7 @@ public class JpReproducirPartida extends javax.swing.JPanel {
     private javax.swing.JToggleButton btnReproducir;
     private javax.swing.JButton btnRetroceder;
     private javax.swing.JToggleButton btnTema;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtInformacion;
     // End of variables declaration//GEN-END:variables
