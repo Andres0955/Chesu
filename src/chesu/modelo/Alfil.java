@@ -33,7 +33,7 @@ public class Alfil extends Piezas{
     }
 
     @Override
-    public boolean esMovimientoValido(int filaDestino, int columnaDestino) {
+    public boolean esMovimientoValido(int filaDestino, int columnaDestino, Tablero2 tablero2) {
         int deltaFila = Math.abs(filaDestino - getFila());
         int deltaColumna = Math.abs(columnaDestino - getColumna());
         return deltaFila == deltaColumna; // Movimiento en diagonal

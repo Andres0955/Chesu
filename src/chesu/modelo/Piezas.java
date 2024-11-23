@@ -44,9 +44,10 @@ public abstract class Piezas {
      * Metodo abstracto para validar si es un movimiento valido para las piezas.
      * @param filaDestino fila a la que se desea mover.
      * @param columnaDestino columna a la que se desea mover.
+     * @param tablero2 instancia de tablero2 para confirmar si hay captura.
      * @return true si es un moviminto valido dentro de las reglas del ajedrez, false si no es valido.
      */
-    public abstract boolean esMovimientoValido(int filaDestino, int columnaDestino);
+    public abstract boolean esMovimientoValido(int filaDestino, int columnaDestino, Tablero2 tablero2);
     
     /**
      * Obtiene el ancho de la pieza.

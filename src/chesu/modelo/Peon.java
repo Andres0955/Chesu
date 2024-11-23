@@ -50,10 +50,10 @@ public class Peon extends Piezas{
     }
    
    @Override
-   public boolean esMovimientoValido(int filaDestino, int columnaDestino) {
+   public boolean esMovimientoValido(int filaDestino, int columnaDestino, Tablero2 tablero2) {
         int direccion = getColor().equals("blanca") ? -1 : 1; // Determina la dirección según el color
 
-        if (columnaDestino == getColumna()) {
+        if (columnaDestino == getColumna() && !tablero2.estaOcupada(filaDestino, columnaDestino)) {
             // Avanza una casilla en dirección hacia el oponente
             if (filaDestino == getFila() + direccion) {
                 return true;
@@ -64,10 +64,10 @@ public class Peon extends Piezas{
                 return true;
             }
         } else if (Math.abs(columnaDestino - getColumna()) == 1 && filaDestino == getFila() + direccion) {
-//            // Captura en diagonal
-//            if(movimiento.esCaptura()){
-//                return true;
-//            } 
+            // Captura en diagonal
+            if(tablero2.estaOcupada(filaDestino, columnaDestino)){
+                return true;
+            } 
         }
 
         return false;

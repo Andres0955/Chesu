@@ -15,6 +15,7 @@ public class Torre extends Piezas{
      * @param ruta la ruta en la que se encuentra el png de la pieza.
      * @param fila la fila inicial donde se ubicara dentro de la matriz.
      * @param columna la columna inicial donde se ubicara dentro de la matriz.
+     * @param tablero instanica de tablero2.
      */
     public Torre(char tipo, String color, String ruta, int fila, int columna, Tablero tablero){
         super(tipo, color, ruta, fila, columna);
@@ -44,7 +45,7 @@ public class Torre extends Piezas{
     }
     
     @Override
-    public boolean esMovimientoValido(int filaDestino, int columnaDestino) {
+    public boolean esMovimientoValido(int filaDestino, int columnaDestino, Tablero2 tablero2) {
         // Verificar si el movimiento es en línea recta (horizontal o vertical)
         boolean esLineaRecta = getFila() == filaDestino || getColumna() == columnaDestino;
 

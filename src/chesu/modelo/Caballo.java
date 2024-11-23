@@ -34,7 +34,7 @@ public class Caballo extends Piezas{
     }
 
     @Override
-    public boolean esMovimientoValido(int filaDestino, int columnaDestino) {
+    public boolean esMovimientoValido(int filaDestino, int columnaDestino, Tablero2 tablero2) {
         int deltaFila = Math.abs(filaDestino - getFila());
         int deltaColumna = Math.abs(columnaDestino - getColumna());
         return (deltaFila == 2 && deltaColumna == 1) || (deltaFila == 1 && deltaColumna == 2);

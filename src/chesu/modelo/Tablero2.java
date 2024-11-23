@@ -191,7 +191,7 @@ public class Tablero2 {
     private boolean moverPieza(int filaDestino, int columnaDestino, Piezas pieza) {
         esCaptura = false;
         // Verificar si el movimiento es válido para la pieza
-        if (pieza.esMovimientoValido(filaDestino, columnaDestino)) {
+        if (pieza.esMovimientoValido(filaDestino, columnaDestino, this)) {
             int filaActual = pieza.getFila();
             int columnaActual = pieza.getColumna();
 
