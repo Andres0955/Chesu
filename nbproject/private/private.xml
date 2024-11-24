@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/chesu/controlador/ControlJugar.java</file>
             <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/chesu/modelo/Tablero2.java</file>
-            <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/chesu/modelo/Casilla.java</file>
+            <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/recursos/partidas/fff.txt</file>
+            <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/chesu/vista/JpInformacionPartida.java</file>
             <file>file:/C:/Users/caaco/OneDrive/Documentos/NetBeansProjects/chesu/src/chesu/vista/JpTablero.java</file>
         </group>
     </open-files>

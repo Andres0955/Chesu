@@ -3,6 +3,7 @@ package chesu.vista;
 import chesu.controlador.*;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -16,7 +17,7 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         this.controlPrincipal = controlPrincipal;
         initComponents();
         this.jpFondo.setBackground(new Color(0,0,0,150));
-        
+        ImageIcon icon = new ImageIcon("/recursos/imagenes/botones/btnPausar.png");
     }
     
     private String[] llenarInformacion(){
@@ -32,7 +33,42 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         informacionDelJuego[5] = txtJugadorNegro.getText();
         informacionDelJuego[6] = nombreArchivo;
         
+        String[] jugadores = {txtJugadorBlanco.getText(), txtJugadorNegro.getText()};
+        controlJugar.setNombresJugadores(jugadores);
+        
         return informacionDelJuego;
+    }
+    
+    private boolean verificarInformacionCompleta() {
+        if(txtEvento.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The event field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtLugar.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The site field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtFecha.getDate() == null){
+            JOptionPane.showMessageDialog(this, "The date is not selected.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtRound.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "The round field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtJugadorBlanco.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The white player name field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtJugadorNegro.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The black player name field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtNombreArchivo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "The save as field is empty.", "ERROR:", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
     
     public void creacionArchivoExitosa(boolean creado){
@@ -68,10 +104,15 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         txtJugadorNegro = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnContinuar = new javax.swing.JButton();
-        txtFecha = new com.toedter.calendar.JDateChooser();
         lblNombreArchivo = new javax.swing.JLabel();
         txtNombreArchivo = new javax.swing.JTextField();
+        txtFecha = new com.toedter.calendar.JDateChooser();
 
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblEvento.setText("Event:");
@@ -105,6 +146,11 @@ public class JpInformacionPartida extends javax.swing.JPanel {
                 btnContinuarActionPerformed(evt);
             }
         });
+        btnContinuar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnContinuarKeyPressed(evt);
+            }
+        });
 
         lblNombreArchivo.setText("Save as:");
 
@@ -127,9 +173,9 @@ public class JpInformacionPartida extends javax.swing.JPanel {
                             .addComponent(lblEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEvento)
+                            .addComponent(txtEvento, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                             .addComponent(txtLugar)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpFondoLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -193,9 +239,12 @@ public class JpInformacionPartida extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        controlJugar.obtenerInformacionDelJuego(llenarInformacion());
-        controlJugar.cargarPartida();
-        controlPrincipal.cambiarPanel("tablero");
+        if(verificarInformacionCompleta()){
+            controlJugar.obtenerInformacionDelJuego(llenarInformacion());
+            controlJugar.cargarPartida();
+            controlPrincipal.cambiarPanel("tablero");
+        }
+        
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -208,6 +257,14 @@ public class JpInformacionPartida extends javax.swing.JPanel {
             evt.consume();
         }
     }//GEN-LAST:event_txtRoundKeyTyped
+
+    private void btnContinuarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnContinuarKeyPressed
+         
+    }//GEN-LAST:event_btnContinuarKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+       
+    }//GEN-LAST:event_formKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

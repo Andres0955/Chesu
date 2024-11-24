@@ -66,7 +66,7 @@ public class ControlPrincipal {
         }else{
             this.escribirArchivo = new EscribirArchivo();
             this.jpInformacionPartida = new JpInformacionPartida(instancia);
-            this.jpTablero = new JpTablero();
+            this.jpTablero = new JpTablero(this);
             this.controlJugar = new ControlJugar(jpInformacionPartida, jpTablero, escribirArchivo);
             jpInformacionPartida.setControlJugar(controlJugar);
             jpTablero.setControlJugar(controlJugar);

@@ -148,7 +148,7 @@ public class Tablero {
 
         // Determina la pieza en base a la primera letra
         if(notacion.charAt(0) >= 'A' && notacion.charAt(0) <= 'Z') {
-            tipo = switch (notacion.charAt(0)) {
+            tipo = switch(notacion.charAt(0)){
                 case 'K' -> 'K';
                 case 'Q' -> 'Q';
                 case 'R' -> 'R';

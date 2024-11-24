@@ -1,46 +1,40 @@
 package chesu.modelo;
 
+import chesu.modelo.excepciones.ArchivoExistenteException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Cesar Acosta
  */
 public class EscribirArchivo {
-    private boolean archivoCreado;
     private File archivo;
     private int numMovimiento;
     private boolean turnoCompleto;
     private int turno;
     
     public EscribirArchivo(){
-        this.archivoCreado = false;
+        this.archivo = null;
         this.numMovimiento = 0;
         this.turnoCompleto = false;
         this.turno = 0;
         
     }
     
-    public void crearArchivo(String[] informacion){
+    public void crearArchivo(String[] informacion) throws ArchivoExistenteException{
         String nombre = informacion[6];
         File archivo = new File(nombre);
-        System.out.println(nombre);
+
         try {
             if(archivo.createNewFile()) {
-                archivoCreado = true;
                 this.archivo = archivo;
             }else {
-                archivoCreado = false;
+                throw new ArchivoExistenteException();
             }
         } catch (IOException e) {
-            System.out.println("Ocurrió un error al crear el archivo.");
-            e.printStackTrace();
+            System.err.println("Error al intentar crear el archivo: " + e.getMessage());
+            return;
         }
         
         crearMetaDatos(informacion);
@@ -65,12 +59,29 @@ public class EscribirArchivo {
         char[] letras = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         int fila = 8 - movimiento.getFila();
         char columna = letras[movimiento.getColumna()];
+        char columnaOrigen = letras[movimiento.getColumnaOrigen()];
         String captura = movimiento.esCaptura() ? "x" : "";
-        char pieza = movimiento.getTipo() == 'P' ? '\0' : movimiento.getTipo();
-        String dato = " " + obtenerTurno() + pieza + captura  + columna + fila;
+        String jaqueMate = movimiento.esJaqueMate() ? "#" : "";
+        String pieza = movimiento.getTipo() == 'P' ? "" : Character.toString(movimiento.getTipo());
+        String ganador = " " + movimiento.getGanador();
+        String promocion = movimiento.getPromocion();
+        
+        String dato; 
+        if(pieza.equals("") && captura.equals("x")){
+            dato = " " + obtenerTurno() + columnaOrigen + captura  + columna + fila + promocion + jaqueMate;
+        }else{
+            dato = " " + obtenerTurno() + pieza + captura  + columna + fila + promocion + jaqueMate;
+
+        }
         
         try(FileWriter escribir = new FileWriter(archivo, true)){
-            escribir.write(dato);
+            if(jaqueMate.equals("#")){
+                escribir.write(dato);
+                escribir.write(ganador);
+            }else{
+                escribir.write(dato);
+            }
+            
         }catch (IOException e) { 
             System.out.printf("An exception occurred %s", e.getMessage()); 
         }
@@ -99,8 +110,12 @@ public class EscribirArchivo {
             return null;
         }
     }
+    
+    public boolean borrarArchivo(){
+        return archivo.delete();
+    }
 
-    public boolean getArchivoCreado(){
-        return archivoCreado;
+    public boolean getArchivo(){
+        return archivo != null;
     }
 }

@@ -7,8 +7,12 @@ package chesu.modelo;
 public class Movimiento {
     private char tipo;
     private int[] casillaDestino;
+    private int[] casillaOrigen;
     private boolean captura;
     private boolean enroque;
+    private boolean esJaqueMate;
+    private String ganador;
+    private String promocion;
     
     /**
      * Constructor de la clase Movimineto.
@@ -20,6 +24,16 @@ public class Movimiento {
         this.tipo = tipo;
         this.casillaDestino = casillaDestino;
         this.captura = captura;
+    }
+    
+    public Movimiento(char tipo, int[] casillaOrigen, int[] casillaDestino, boolean captura, boolean jaqueMate, String ganador, String promocion) {
+        this.tipo = tipo;
+        this.casillaOrigen = casillaOrigen;
+        this.casillaDestino = casillaDestino;
+        this.captura = captura;
+        this.esJaqueMate = jaqueMate;
+        this.ganador = ganador;
+        this.promocion = promocion;
     }
     
     /**
@@ -46,6 +60,10 @@ public class Movimiento {
         return casillaDestino[1];
     }
     
+    public int getColumnaOrigen(){
+        return casillaOrigen[1];
+    }
+    
     /**
      * Obtiene el arreglo con las ubicaciones destino.
      * @return las ubicaciones destino.
@@ -68,5 +86,21 @@ public class Movimiento {
      */
     public boolean esEnroque(){
         return enroque;
+    }
+    
+    public boolean esJaqueMate(){
+        return esJaqueMate;
+    }
+    
+    public String getGanador(){
+        return ganador;
+    }
+    
+    public String getPromocion(){
+        return promocion;
+    }
+    
+    public void setPromocion(String nuevaPromocion){
+        this.promocion = nuevaPromocion;
     }
 }

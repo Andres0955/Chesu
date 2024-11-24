@@ -1,5 +1,6 @@
 package chesu.modelo;
 
+import chesu.util.Sonido;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,14 @@ public class Tablero2 {
     private boolean esPrimerClick;
     private boolean esTurnoBlancas;
     private boolean esCaptura;
+    private String mensajeError;
+    private String[] jugadores;
+    private String ganador;
+    private boolean esJaqueMate;
+    private Piezas esPromocion;
+    private String tipoNuevaPieza;
+    private Movimiento movimiento;
+    private Sonido sonido;
     
     
     public Tablero2(EscribirArchivo escribirArchivo){
@@ -32,7 +41,11 @@ public class Tablero2 {
         this.esPrimerClick = true;
         this.esTurnoBlancas = true;
         this.esCaptura = false;
-        
+        this.jugadores = new String[2];  
+        this.esJaqueMate = false;
+        this.esPromocion = null;
+        this.tipoNuevaPieza = "";
+        this.sonido = new Sonido();
         
         inicializarTablero();
         inicializarMapaPosiciones();
@@ -120,9 +133,9 @@ public class Tablero2 {
         return null;
     }
     
-    public void casillaSeleccionada(int x, int y) {
+    public boolean casillaSeleccionada(int x, int y) {
         if (x < 120 || x > 750 || y < 50 || y > 650) {
-            return;
+            return false;
         }
 
         for (int fila = 0; fila < 8; fila++) {
@@ -138,15 +151,14 @@ public class Tablero2 {
                              (!esTurnoBlancas && posiciones[fila][columna].getColor().equals("negra")))) {
 
                             this.casillaActual = casilla;
-                            System.out.println("Pieza seleccionada: " + casillaActual.getFila() + " " + casillaActual.getColumna());
                             casilla.setImagen("/recursos/imagenes/piezas/casillaSeleccionada.png");
                             esPrimerClick = false;
                         } else {
                             // Si en el primer click no se selecciona una pieza sale no realiza ninguna accion.
-                            return;
+                            return false;
                         }
                     } 
-                    // Segundo clic: intentar mover la pieza
+                    // Segundo clic, intentar mover la pieza
                     else {
                         this.casillaDestino = casilla;
 
@@ -154,16 +166,30 @@ public class Tablero2 {
                         if (casillaActual.getOcupado()) {
                             Piezas pieza = posiciones[casillaActual.getFila()][casillaActual.getColumna()];
                             if(moverPieza(casillaDestino.getFila(), casillaDestino.getColumna(), pieza)){
+                                sonido.reproducir();
                                 int filaDestino = casillaDestino.getFila();
                                 int columnaDestino = casillaDestino.getColumna();
                                 int[] destino = {filaDestino, columnaDestino};
+                                int[] origen = {casillaActual.getFila(), casillaActual.getColumna()};
                             
-                                // Cambiar el turno solo si el movimiento fue válido
                                 esTurnoBlancas = !esTurnoBlancas;
-                                    System.out.println(esCaptura);
-                                    escribirArchivo.escribirMovimiento(new Movimiento(pieza.getTipo(), destino, esCaptura));
-                                System.out.println("Pieza movida a: " + casillaDestino.getFila() + " " + casillaDestino.getColumna());
-                            }  
+                                this.movimiento = new Movimiento(pieza.getTipo(), origen, destino, esCaptura, esJaqueMate, 
+                                        verificarGanador(), verificarPromocion(pieza));
+                                mensajeError = null;
+                                
+                                // Restaurar la imagen de la casilla anterior
+                                if (casillaAnterior != null && casillaAnterior != casilla) {
+                                    if ((casillaAnterior.getFila() + casillaAnterior.getColumna()) % 2 == 0) {
+                                        casillaAnterior.setImagen("/recursos/imagenes/piezas/casillaBlanca.png");
+                                    } else {
+                                        casillaAnterior.setImagen("/recursos/imagenes/piezas/casillaMarron.png");
+                                    }
+                                }
+
+                                // Reiniciar el estado para el próximo turno
+                                esPrimerClick = true;
+                                return true;
+                            }
                         }
 
                         // Restaurar la imagen de la casilla anterior
@@ -180,10 +206,11 @@ public class Tablero2 {
                     }
 
                     this.casillaAnterior = casilla;
-                    return;
+                    return false;
                 }
             }
         }
+        return false;
     }
 
     
@@ -208,10 +235,11 @@ public class Tablero2 {
                     posiciones[filaActual][columnaActual] = null;
                     casillas[filaActual][columnaActual].setOcupado(false);
                     casillas[filaDestino][columnaDestino].setOcupado(true);
+                    verificarFinJuego();
                     return true;
                 } else {
                     // Mismo color, no se puede capturar.
-                    System.out.println("Movimiento inválido: No puedes capturar tu propia pieza.");
+                    mensajeError = "Invalid Move, you cannot capture your own piece.";
                     return false;
                 }
             } else {
@@ -221,13 +249,128 @@ public class Tablero2 {
                 posiciones[filaActual][columnaActual] = null;
                 casillas[filaActual][columnaActual].setOcupado(false);
                 casillas[filaDestino][columnaDestino].setOcupado(true);
+                verificarFinJuego();
                 return true;
             }
         }
         // Movimiento inválido.
+        mensajeError = "Invalid move, try again.";
         return false;
     }
+    
+    public boolean verificarFinJuego(){
+        boolean reyBlanco = false;
+        boolean reyNegro = false;
+        
+        for(int fila = 0; fila < 8; fila++){
+            for(int columna = 0; columna < 8; columna++){
+                Piezas pieza = posiciones[fila][columna];
+                if(pieza != null && pieza.getTipo() == 'K' ){
+                    if(pieza.getColor().equals("blanca")){
+                        reyBlanco = true;
+                    }else if(pieza.getColor().equals("negra")){
+                        reyNegro = true;
+                    }
+                }
+                
+            }
+        }
+        if(reyBlanco && !reyNegro){
+            this.ganador = jugadores[0];
+            this.esJaqueMate = true;
+            return true;
+        }else if(!reyBlanco && reyNegro){
+            this.ganador = jugadores[1];
+            this.esJaqueMate = true;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    private String verificarGanador(){
+        if(ganador != null && ganador.equals(jugadores[0])){
+            return "1-0";
+        }else if(ganador != null && ganador.equals(jugadores[1])){
+            return "0-1";
+        }else{
+            return "";
+        }
+    }
+    
+    private String verificarPromocion(Piezas pieza){
+        if(pieza.getTipo() != 'P'){
+            return "";
+        }
+        
+        int j = pieza.getColor().equals("blanca") ? 0 : 7;
+        
+        for(int i = 0; i < 8; i++){
+            if(posiciones[j][i] == pieza){
+                esPromocion = pieza;
+                return "=" + tipoNuevaPieza;
+            }
+        }
+        return "";
+    }
+    
+    public void escribirMovimiento(){
+        if(!tipoNuevaPieza.equals("")){
+            movimiento.setPromocion("=" + tipoNuevaPieza);
+        }
+        
+        escribirArchivo.escribirMovimiento(movimiento);
+        tipoNuevaPieza = "";
+    }
+    
+    public void cambiarPieza(char tipoPieza){
+        if(esPromocion != null){
+            int fila = esPromocion.getFila();
+            int columna = esPromocion.getColumna();
+            String color = esPromocion.getColor();
 
+            String rutaPiezaBlanca = switch(tipoPieza){
+                case 'Q' -> "/recursos/imagenes/piezas/reinaBlanco.png";
+                case 'R' -> "/recursos/imagenes/piezas/torreBlanco.png";
+                case 'N' -> "/recursos/imagenes/piezas/caballoBlanco.png";
+                case 'B' -> "/recursos/imagenes/piezas/alfilBlanco.png";
+                default -> "";
+            };
+
+            String rutaPiezaNegra = switch(tipoPieza){
+                case 'Q' -> "/recursos/imagenes/piezas/reinaNegro.png";
+                case 'R' -> "/recursos/imagenes/piezas/torreNegro.png";
+                case 'N' -> "/recursos/imagenes/piezas/caballoNegro.png";
+                case 'B' -> "/recursos/imagenes/piezas/alfilNegro.png";
+                default -> "";
+            };
+
+            String ruta = color.equals("blanca") ? rutaPiezaBlanca : rutaPiezaNegra;
+
+            Piezas nuevaPieza = switch(tipoPieza){
+                case 'Q' -> new Reina(tipoPieza, color, ruta, fila, columna);
+                case 'R' -> new Torre(tipoPieza, color, ruta, fila, columna, this);
+                case 'N' -> new Caballo(tipoPieza, color, ruta, fila, columna);
+                case 'B' -> new Alfil(tipoPieza, color, ruta, fila, columna);
+                default -> null;
+            };
+
+            posiciones[fila][columna] = nuevaPieza;
+            tipoNuevaPieza = Character.toString(tipoPieza);
+            esPromocion = null;
+        }
+        
+    }
+    
+    public void setNombreJugadores(String[] jugadores){
+        this.jugadores = jugadores;
+    }
+    
+    public String[] getNombreJugadores(){
+        return jugadores;
+    }
+    
+    
     
     /**
      * verifica si una posicion en la matriz <code>posiciones</code> esta ocupada.
@@ -239,6 +382,22 @@ public class Tablero2 {
         return posiciones[fila][columna] != null;
     } 
     
+    public boolean getEsTurnoBlancas(){
+        return esTurnoBlancas;
+    }
+    
+    public String getGanador(){
+        return ganador;
+    }
+    
+    public String getMensajeError(){
+        return mensajeError;
+    }
+    
+    public void restaurarMensajeError(){
+        this.mensajeError = null;
+    }
+    
     public Casilla[][] getCasillas(){
         return casillas;
     }
@@ -249,5 +408,13 @@ public class Tablero2 {
     
     public Map<String, Point> getCoordenadas(){
         return coordenadas;
+    }
+    
+    public Piezas getEsPromocion(){
+        return esPromocion;
+    }
+    
+    public void setTipoNuevaPieza(char tipoPieza){
+        this.tipoNuevaPieza = Character.toString(tipoPieza);
     }
 }
