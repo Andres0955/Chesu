@@ -185,8 +185,8 @@ public class JpReproducirPartida extends javax.swing.JPanel {
         int resultado = -1000;
         txtInformacion.setText(informacion);
         if(informacion.equals("White Wins!") || informacion.equals("Black wins") || informacion.equals("Mutual Agreement")){
-           resultado = JOptionPane.showConfirmDialog(this, "Desea reproducir nuevamente la partida?",
-                   "Fin de la partida", JOptionPane.YES_NO_OPTION);
+           resultado = JOptionPane.showConfirmDialog(this, "Do you want to replay the game?",
+                   "End 0f the game", JOptionPane.YES_NO_OPTION);
         }
         
         if(resultado == JOptionPane.YES_OPTION){
@@ -222,8 +222,8 @@ public class JpReproducirPartida extends javax.swing.JPanel {
             default -> "Pieza no identificada";
         };
         
-        JOptionPane.showMessageDialog(this, "Movimiento inválido para la pieza " + pieza,
-                "Movimiento Invalido", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Invalid move for the piece " + pieza,
+                "Invalid move", JOptionPane.ERROR_MESSAGE);
     }
 
     

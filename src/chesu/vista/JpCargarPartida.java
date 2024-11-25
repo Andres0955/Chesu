@@ -39,7 +39,7 @@ public class JpCargarPartida extends javax.swing.JPanel {
     private File crearFileChooser(){
         JFileChooser fileChooser = new JFileChooser("./src/recursos/partidas");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto", "txt"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto", "pgn", "txt"));
         int resultado = fileChooser.showOpenDialog(this);
         
         if(resultado == JFileChooser.APPROVE_OPTION){
@@ -55,8 +55,8 @@ public class JpCargarPartida extends javax.swing.JPanel {
      * Muestra un cuadro de dialogo para informar al usuario que no puede continuar sin cargar un archivo.
      */
     public void errorAlCargarArchivo(){
-        JOptionPane.showMessageDialog(this, "No se ha cargado ningun archivo, intentelo nuevamente.",
-                "Error al cargar Archivo.", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "No file has been uploaded, please try again.",
+                "Error uploading file", JOptionPane.ERROR_MESSAGE);
     }
    
     @SuppressWarnings("unchecked")
@@ -163,8 +163,8 @@ public class JpCargarPartida extends javax.swing.JPanel {
         }
         File archivo = crearFileChooser();
         controlReproductor.obtenerArchivo(archivo);
-        JOptionPane.showMessageDialog(this, "El archivo " + archivo.getName() + " se cargó correctamente.",
-            "Carga exitosa", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "The file " + archivo.getName() + " was uploaded successfully.",
+            "Successful upload", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSeleccionarArchivoActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
