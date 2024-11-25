@@ -1,0 +1,372 @@
+@startuml
+
+
+skinparam classAttributeIconSize 0
+!theme spacelab
+
+package modelo{
+    package excepciones{
+        class ArchivoExistenteException {
+              + ArchivoExistenteException():
+        }
+
+        class GeneralException {
+          + GeneralException(String):
+        }
+    }
+    class Alfil {
+      + Alfil(char, String, String, int, int):
+      + esMovimientoValido(Movimiento): boolean
+      + esMovimientoValido(int, int, Tablero2): boolean
+    }
+
+    class Caballo {
+      + Caballo(char, String, String, int, int):
+      + esMovimientoValido(Movimiento): boolean
+      + esMovimientoValido(int, int, Tablero2): boolean
+    }
+    class Casilla {
+      + Casilla(int, int, int, int, String, boolean):
+      - ancho: int
+      - posY: int
+      - alto: int
+      - fila: int
+      - imagen: Image
+      - posX: int
+      - columna: int
+      - ocupado: boolean
+       fila: int
+       imagen: Image
+       ancho: int
+       alto: int
+       posX: int
+       posY: int
+       ocupado: boolean
+       columna: int
+    }
+
+    class EscribirArchivo {
+      + EscribirArchivo():
+      - archivo: File
+      + crearArchivo(String[]): void
+      + escribirMovimiento(Movimiento): void
+      - obtenerTurno(): String
+      + borrarArchivo(): boolean
+      - crearMetaDatos(String[]): void
+       archivo: boolean
+    }
+
+    class LeerArchivo {
+      + LeerArchivo():
+      - movimientos: ArrayList<String>
+      + leerYcargarArchivo(File): ArrayList<String>
+       movimientos: ArrayList<String>
+    }
+
+    class Movimiento {
+      + Movimiento(char, int[], boolean):
+      + Movimiento(char, int[], int[], boolean, boolean, String, String, boolean, boolean):
+      - enroqueCorto: boolean
+      - promocion: String
+      - ganador: String
+      - enroqueLargo: boolean
+      - casillaDestino: int[]
+      - tipo: char
+      + esEnroque(): boolean
+      + esJaqueMate(): boolean
+      + esCaptura(): boolean
+       promocion: String
+       enroqueLargo: boolean
+       columnaOrigen: int
+       fila: int
+       casillaDestino: int[]
+       tipo: char
+       enroqueCorto: boolean
+       ganador: String
+       columna: int
+    }
+    class Peon {
+      + Peon(char, String, String, int, int):
+      + esMovimientoValido(Movimiento): boolean
+      + esMovimientoValido(int, int, Tablero2): boolean
+    }
+    class Piezas {
+      + Piezas(char, String, String, int, int):
+      - alto: int
+      - fila: int
+      - tipo: char
+      - color: String
+      - ancho: int
+      - columna: int
+      - imagen: Image
+      + setPosicion(int, int): void
+      + esMovimientoValido(int, int, Tablero2): boolean
+      + esMovimientoValido(Movimiento): boolean
+       fila: int
+       imagen: Image
+       ancho: int
+       alto: int
+       color: String
+       tipo: char
+       columna: int
+    }
+    class Reina {
+      + Reina(char, String, String, int, int):
+      + esMovimientoValido(Movimiento): boolean
+      + esMovimientoValido(int, int, Tablero2): boolean
+    }
+    class Rey {
+      + Rey(char, String, String, int, int):
+      + esMovimientoValido(int, int, Tablero2): boolean
+      + esMovimientoValido(Movimiento): boolean
+    }
+
+    class Sonido {
+      + Sonido():
+      + reproducir(): void
+      + detener(): void
+    }
+    class Tablero {
+      + Tablero(ControlReproductor):
+      - posiciones: Piezas[][]
+      - movimientosPgnVacio: boolean
+      - movimientosPgn: ArrayList<String>
+      - moverPieza(Movimiento): boolean
+      + reiniciarPartida(): void
+      + estaOcupada(int, int): boolean
+      - obtenerMovimientoPgn(): String
+      - convertirNotacionACoordenadas(String): int[]
+      - inicializarTablero(): void
+      - ejecutarEnroqueCorto(): boolean
+      - buscarPiezaPorTipoYColor(char, String, int[]): ArrayList<Piezas>
+      + cargarNuevaMatriz(Piezas[][]): void
+      + extraerMatriz(): Piezas[][]
+      - analizarMovimiento(String): Movimiento
+      + reproducirSiguienteMovimiento(): Piezas[][]
+      - borrarPosiciones(): void
+      - ejecutarEnroqueLargo(): boolean
+       posiciones: Piezas[][]
+       movimientosPgn: ArrayList<String>
+       movimientosPgnVacio: boolean
+    }
+    class Tablero2 {
+      + Tablero2(EscribirArchivo):
+      - esTurnoBlancas: boolean
+      - esPromocion: Piezas
+      - mensajeError: String
+      - tipoNuevaPieza: String
+      - posiciones: Piezas[][]
+      - coordenadas: Map<String, Point>
+      - ganador: String
+      - casillas: Casilla[][]
+      + estaOcupada(int, int): boolean
+      - verificarEnroqueCorto(int, int, Piezas): boolean
+      - inicializarMapaPosiciones(): void
+      + restaurarMensajeError(): void
+      + escribirMovimiento(): void
+      - inicializarTablero(): void
+      + verificarFinJuego(): boolean
+      - verificarGanador(): String
+      + cambiarPieza(char): void
+      - moverPieza(int, int, Piezas): boolean
+      + crearCasillas(): Casilla[][]
+      + posiblesCasillasDestino(int, int): Piezas[][]
+      + casillaSeleccionada(int, int): boolean
+      - verificarPromocion(Piezas): String
+      - verificarEnroqueLargo(int, int, Piezas): boolean
+       posiciones: Piezas[][]
+       esTurnoBlancas: boolean
+       nombreJugadores: String[]
+       esPromocion: Piezas
+       tipoNuevaPieza: char
+       ganador: String
+       coordenadas: Map<String, Point>
+       mensajeError: String
+       casillas: Casilla[][]
+    }
+    class Torre {
+      + Torre(char, String, String, int, int, Tablero):
+      + Torre(char, String, String, int, int, Tablero2):
+      + esMovimientoValido(Movimiento): boolean
+      + esMovimientoValido(int, int, Tablero2): boolean
+      - caminoLibre(int, int): boolean
+      - caminoLibre2(int, int): boolean
+    }
+}
+
+package controlador{
+    class ControlJugar {
+      + ControlJugar(JpInformacionPartida, JpTablero, EscribirArchivo):
+      + confirmarCreacionArchivo(boolean): void
+      + hayPromocion(): Piezas
+      + obtenerTurno(): boolean
+      + obtenerMensajeError(): String
+      + actualizarTipoNuevaPieza(char): void
+      + borrarArchivo(): boolean
+      + enviarCasillaSeleccionada(int, int): void
+      + esFinJuego(): boolean
+      + cargarPartida(): void
+      + modificarPieza(char): void
+      + casillaSeleccionada(int, int): void
+      + verificarTurno(): boolean
+      + obtenerInformacionDelJuego(String[]): void
+       ganador: String
+       nombresJugadores: String[]
+    }
+    class ControlPrincipal {
+      + ControlPrincipal(JFrame):
+      + eleccionDeModo(int): void
+      + cambiarPanel(String): void
+    }
+    class ControlReproductor {
+      + ControlReproductor(ControlPrincipal, JpReproducirPartida):
+      - archivo: File
+      + retroceder(): void
+      + iniciarTemporizador(): void
+      + obtenerInformacion(String): void
+      - cargarPartida(): void
+      + pararTemporizador(): void
+      + reiniciar(): void
+      + errorEncontrado(char): void
+      + obtenerArchivo(File): void
+      + avanzar(): void
+       archivo: File
+    }
+}
+
+package vista{
+    class JpCargarPartida {
+      + JpCargarPartida(ControlPrincipal, ControlReproductor):
+      - btnRegresarActionPerformed(ActionEvent): void
+      - btnStartActionPerformed(ActionEvent): void
+      - crearFileChooser(): File
+      - initComponents(): void
+      + errorAlCargarArchivo(): void
+      - btnSeleccionarArchivoActionPerformed(ActionEvent): void
+      + paintComponent(Graphics): void
+    }
+    class JpInformacionPartida {
+      + JpInformacionPartida(ControlPrincipal):
+      - controlJugar: ControlJugar
+      - btnContinuarKeyPressed(KeyEvent): void
+      + paintComponent(Graphics): void
+      - formKeyPressed(KeyEvent): void
+      - llenarInformacion(): String[]
+      - btnContinuarActionPerformed(ActionEvent): void
+      - initComponents(): void
+      - btnCancelarActionPerformed(ActionEvent): void
+      - verificarInformacionCompleta(): boolean
+      - txtRoundKeyTyped(KeyEvent): void
+      - txtJugadorBlancoActionPerformed(ActionEvent): void
+      + creacionArchivoExitosa(boolean): void
+      - txtJugadorNegroActionPerformed(ActionEvent): void
+       controlJugar: ControlJugar
+    }
+    class JpInicio {
+      + JpInicio(ControlPrincipal):
+      - btnReproductorPgnActionPerformed(ActionEvent): void
+      + paintComponent(Graphics): void
+      - btnJugar1ActionPerformed(ActionEvent): void
+      - initComponents(): void
+    }
+    class JpReproducirPartida {
+      + JpReproducirPartida(ControlPrincipal):
+      - controlReproductor: ControlReproductor
+      - posiciones: Piezas[][]
+      - inicializarMapaPosiciones(): void
+      + paintComponent(Graphics): void
+      - btnRetrocederActionPerformed(ActionEvent): void
+      - jButton1ActionPerformed(ActionEvent): void
+      + actualizarPanel(): void
+      - txtInformacionActionPerformed(ActionEvent): void
+      + dibujarTablero(Graphics): void
+      - elegirColores(int): void
+      - btnReproducirActionPerformed(ActionEvent): void
+      - btnTemaActionPerformed(ActionEvent): void
+      + mostrarErrorArchivoVacio(): void
+      + actualizarInformacion(String): void
+      - initComponents(): void
+      + mostrarErrorMovimientos(): void
+      - btnReiniciarActionPerformed(ActionEvent): void
+      - dibujarPiezas(Graphics): void
+      + errorDeMovimiento(char): void
+      - btnAvanzarActionPerformed(ActionEvent): void
+       posiciones: Piezas[][]
+       controlReproductor: ControlReproductor
+    }
+    class JpTablero {
+      + JpTablero(ControlPrincipal):
+      - posiciones: Piezas[][]
+      - controlJugar: ControlJugar
+      - coordenadas: Map<String, Point>
+      - casillas: Casilla[][]
+      - dibujarPiezas(Graphics): void
+      - rastrearUbicacion(): void
+      + paintComponent(Graphics): void
+      - mostrarEleccionPieza(): char
+      + dibujarTablero(Graphics): void
+      - finJuegoDetectado(): void
+      + verificarPromocion(): void
+      + actualizarPanel(): void
+      - txtInformacionActionPerformed(ActionEvent): void
+      - elegirColores(int): void
+      - mostrarTurno(boolean): void
+      - mostrarMensajeError(String): void
+      - initComponents(): void
+      - btnRegresarActionPerformed(ActionEvent): void
+       posiciones: Piezas[][]
+       controlJugar: ControlJugar
+       coordenadas: Map<String, Point>
+       casillas: Casilla[][]
+    }
+}
+
+class chesu {
+  + chesu(): 
+  + main(String[]): void
+}
+
+Alfil                      -[#000082,plain]-^  Piezas                    
+Caballo                    -[#000082,plain]-^  Piezas                    
+ControlJugar              "1" *-[#595959,plain]-> "escribirArchivo\n1" EscribirArchivo           
+ControlJugar              "1" *-[#595959,plain]-> "jpInformacionPartida\n1" JpInformacionPartida      
+ControlJugar              "1" *-[#595959,plain]-> "jpTablero\n1" JpTablero                 
+ControlJugar              "1" *-[#595959,plain]-> "tablero2\n1" Tablero2                  
+ControlPrincipal          "1" *-[#595959,plain]-> "controlJugar\n1" ControlJugar              
+ControlPrincipal          "1" *-[#595959,plain]-> "controlReproductor\n1" ControlReproductor        
+ControlPrincipal          "1" *-[#595959,plain]-> "escribirArchivo\n1" EscribirArchivo           
+ControlPrincipal          "1" *-[#595959,plain]-> "jpCargarPartida\n1" JpCargarPartida           
+ControlPrincipal          "1" *-[#595959,plain]-> "jpInformacionPartida\n1" JpInformacionPartida      
+ControlPrincipal          "1" *-[#595959,plain]-> "jpInicio\n1" JpInicio                  
+ControlPrincipal          "1" *-[#595959,plain]-> "jpReproducirPartida\n1" JpReproducirPartida       
+ControlPrincipal          "1" *-[#595959,plain]-> "jpTablero\n1" JpTablero                 
+ControlReproductor        "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+ControlReproductor        "1" *-[#595959,plain]-> "jpReproducirPartida\n1" JpReproducirPartida       
+ControlReproductor        "1" *-[#595959,plain]-> "sonido\n1" Sonido                    
+ControlReproductor        "1" *-[#595959,plain]-> "tablero\n1" Tablero                   
+JpCargarPartida           "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+JpCargarPartida           "1" *-[#595959,plain]-> "controlReproductor\n1" ControlReproductor        
+JpInformacionPartida      "1" *-[#595959,plain]-> "controlJugar\n1" ControlJugar              
+JpInformacionPartida      "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+JpInicio                  "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+JpReproducirPartida       "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+JpReproducirPartida       "1" *-[#595959,plain]-> "controlReproductor\n1" ControlReproductor        
+JpReproducirPartida       "1" *-[#595959,plain]-> "posiciones\n*" Piezas                    
+JpTablero                 "1" *-[#595959,plain]-> "casillas\n*" Casilla                   
+JpTablero                 "1" *-[#595959,plain]-> "controlJugar\n1" ControlJugar              
+JpTablero                 "1" *-[#595959,plain]-> "controlPrincipal\n1" ControlPrincipal          
+JpTablero                 "1" *-[#595959,plain]-> "posiciones\n*" Piezas                    
+Peon                       -[#000082,plain]-^  Piezas                    
+Reina                      -[#000082,plain]-^  Piezas                    
+Rey                        -[#000082,plain]-^  Piezas                    
+Tablero                   "1" *-[#595959,plain]-> "controlReproductor\n1" ControlReproductor        
+Tablero                   "1" *-[#595959,plain]-> "posiciones\n*" Piezas                    
+Tablero2                  "1" *-[#595959,plain]-> "casillas\n*" Casilla                   
+Tablero2                  "1" *-[#595959,plain]-> "escribirArchivo\n1" EscribirArchivo           
+Tablero2                  "1" *-[#595959,plain]-> "movimiento\n1" Movimiento                
+Tablero2                  "1" *-[#595959,plain]-> "posiciones\n*" Piezas                    
+Tablero2                  "1" *-[#595959,plain]-> "sonido\n1" Sonido                    
+Torre                      -[#000082,plain]-^  Piezas                    
+Torre                     "1" *-[#595959,plain]-> "tablero\n1" Tablero                   
+Torre                     "1" *-[#595959,plain]-> "tablero2\n1" Tablero2                  
+@enduml
