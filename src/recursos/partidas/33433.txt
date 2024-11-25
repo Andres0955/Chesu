@@ -1,0 +1,6 @@
+[Event "232"]
+[Site "dsfasd"]
+[Date "03/11/2024"]
+[Round "12"]
+[White "ads"]
+[Black "afdc"]

@@ -2,6 +2,7 @@ package chesu.vista;
 
 import chesu.controlador.*;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -12,12 +13,20 @@ import javax.swing.JOptionPane;
 public class JpInformacionPartida extends javax.swing.JPanel {
     private ControlPrincipal controlPrincipal;
     private ControlJugar controlJugar;
+    private ImageIcon fondo;
     
     public JpInformacionPartida(ControlPrincipal controlPrincipal) {
         this.controlPrincipal = controlPrincipal;
+        this.fondo = new ImageIcon(getClass().getResource("/recursos/imagenes/fondos/fondo.png"));
         initComponents();
         this.jpFondo.setBackground(new Color(0,0,0,150));
-        ImageIcon icon = new ImageIcon("/recursos/imagenes/botones/btnPausar.png");
+    }
+    
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        
+        g.drawImage(fondo.getImage(), 0, 0, getWidth(), getHeight(), null);
     }
     
     private String[] llenarInformacion(){
@@ -115,12 +124,20 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblEvento.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblEvento.setForeground(new java.awt.Color(250, 250, 250));
         lblEvento.setText("Event:");
 
+        lblLugar.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblLugar.setForeground(new java.awt.Color(250, 250, 250));
         lblLugar.setText("Site:");
 
+        lblFecha.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(250, 250, 250));
         lblFecha.setText("Date:");
 
+        lblRound.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblRound.setForeground(new java.awt.Color(250, 250, 250));
         lblRound.setText("Round:");
 
         txtRound.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -129,11 +146,30 @@ public class JpInformacionPartida extends javax.swing.JPanel {
             }
         });
 
+        lblJugadorBlanco.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblJugadorBlanco.setForeground(new java.awt.Color(250, 250, 250));
         lblJugadorBlanco.setText("White player name:");
 
+        txtJugadorBlanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtJugadorBlancoActionPerformed(evt);
+            }
+        });
+
+        lblJugadorNegro.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblJugadorNegro.setForeground(new java.awt.Color(250, 250, 250));
         lblJugadorNegro.setText("Black player name:");
 
+        txtJugadorNegro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtJugadorNegroActionPerformed(evt);
+            }
+        });
+
         btnCancelar.setText("Cancel");
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -141,6 +177,9 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         });
 
         btnContinuar.setText("Next");
+        btnContinuar.setBorderPainted(false);
+        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinuar.setFocusPainted(false);
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarActionPerformed(evt);
@@ -152,6 +191,8 @@ public class JpInformacionPartida extends javax.swing.JPanel {
             }
         });
 
+        lblNombreArchivo.setFont(new java.awt.Font("Algerian", 0, 12)); // NOI18N
+        lblNombreArchivo.setForeground(new java.awt.Color(250, 250, 250));
         lblNombreArchivo.setText("Save as:");
 
         javax.swing.GroupLayout jpFondoLayout = new javax.swing.GroupLayout(jpFondo);
@@ -161,10 +202,10 @@ public class JpInformacionPartida extends javax.swing.JPanel {
             .addGroup(jpFondoLayout.createSequentialGroup()
                 .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFondoLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(btnCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnContinuar))
+                        .addGap(47, 47, 47)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpFondoLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -173,9 +214,9 @@ public class JpInformacionPartida extends javax.swing.JPanel {
                             .addComponent(lblEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEvento, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                             .addComponent(txtLugar)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtEvento)))
                     .addGroup(jpFondoLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -184,17 +225,17 @@ public class JpInformacionPartida extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNombreArchivo))
                             .addGroup(jpFondoLayout.createSequentialGroup()
-                                .addComponent(lblJugadorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtJugadorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpFondoLayout.createSequentialGroup()
-                                .addComponent(lblJugadorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblJugadorNegro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtJugadorBlanco))
+                                .addComponent(txtJugadorNegro))
+                            .addGroup(jpFondoLayout.createSequentialGroup()
+                                .addComponent(lblJugadorBlanco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtJugadorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jpFondoLayout.createSequentialGroup()
                                 .addComponent(lblRound)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtRound, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRound)))))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
         jpFondoLayout.setVerticalGroup(
@@ -230,13 +271,21 @@ public class JpInformacionPartida extends javax.swing.JPanel {
                     .addComponent(txtNombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnContinuar))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, 520));
+        add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 520));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+       
+    }//GEN-LAST:event_formKeyPressed
+
+    private void btnContinuarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnContinuarKeyPressed
+
+    }//GEN-LAST:event_btnContinuarKeyPressed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         if(verificarInformacionCompleta()){
@@ -244,7 +293,7 @@ public class JpInformacionPartida extends javax.swing.JPanel {
             controlJugar.cargarPartida();
             controlPrincipal.cambiarPanel("tablero");
         }
-        
+
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -258,13 +307,13 @@ public class JpInformacionPartida extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtRoundKeyTyped
 
-    private void btnContinuarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnContinuarKeyPressed
-         
-    }//GEN-LAST:event_btnContinuarKeyPressed
+    private void txtJugadorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJugadorBlancoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJugadorBlancoActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-       
-    }//GEN-LAST:event_formKeyPressed
+    private void txtJugadorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJugadorNegroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJugadorNegroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

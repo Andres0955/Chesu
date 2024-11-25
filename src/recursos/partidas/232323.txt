@@ -1,0 +1,7 @@
+[Event "asdfa"]
+[Site "asdfa"]
+[Date "09/11/2024"]
+[Round "3"]
+[White "asdfa"]
+[Black "asdfa"]
+  1. c4  b5 2. cxb5  c6 3. bxc6  a6 4. cxd7  Qxd7
